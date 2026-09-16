@@ -1,69 +1,137 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="hero-section mb-4 shadow">
+<!-- بنر اصلی سایت -->
+<div class="hero-banner text-center shadow-lg mb-5">
     <div class="container">
-        <h1 class="display-6 fw-bold">افزایش واقعی آمار پیج با سپهر فالوور</h1>
-        <p class="lead">ارسال فوری فالوور ایرانی، لایک واقعی، بازدید و کامنت با بهترین قیمت</p>
+        <h1 class="fw-black display-5 mb-3">خرید فالوور، لایک و بازدید اینستاگرام</h1>
+        <p class="fs-5 opacity-90 mb-4">ارسال فوری، بدون نیاز به رمز عبور + ضمانت جبران ریزش و پشتیبانی ۲۴ ساعته</p>
+        <a href="#services" class="btn btn-light btn-lg rounded-pill px-4 fw-bold text-dark shadow-sm">
+            <i class="fas fa-rocket text-danger me-2"></i> مشاهده پکیج‌ها و خرید
+        </a>
     </div>
 </div>
 
-<div class="container">
-    <h3 class="text-center mb-4 fw-bold">📦 لیست خدمات و پکیج‌ها</h3>
-    <div class="row g-4">
-        {% for service in services %}
-        <div class="col-md-4">
-            <div class="card service-card shadow-sm h-100">
-                <div class="card-body d-flex flex-column text-center">
-                    <div class="mb-3">
-                        {% if service.category == 'follower' %}<i class="fas fa-users fa-3x text-primary"></i>
-                        {% elif service.category == 'like' %}<i class="fas fa-heart fa-3x text-danger"></i>
-                        {% elif service.category == 'view' %}<i class="fas fa-eye fa-3x text-info"></i>
-                        {% else %}<i class="fas fa-comments fa-3x text-success"></i>{% endif %}
-                    </div>
-                    <h5 class="card-title fw-bold">{{ service.title }}</h5>
-                    <p class="card-text text-muted flex-grow-1">{{ service.description }}</p>
-                    <div class="price-tag mb-3">{{ "{:,}".format(service.price) }} تومان</div>
-                    <button class="btn btn-primary w-100 mt-auto" data-bs-toggle="modal" data-bs-target="#orderModal{{ service.id }}">
-                        <i class="fas fa-shopping-cart me-1"></i> ثبت و خرید آنلاین
-                    </button>
-                </div>
-            </div>
-        </div>
+<div class="container mb-5" id="services">
+    <h2 class="text-center fw-bold mb-4">خدمات محبوب سپهر فالوور</h2>
 
-        <!-- Modal خرید -->
-        <div class="modal fade" id="orderModal{{ service.id }}" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">خرید {{ service.title }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <!-- تب‌های دسته‌بندی مشابه ایران‌فالوور -->
+    <ul class="nav nav-pills justify-content-center mb-4" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active py-2 px-4" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button"><i class="fas fa-th-large me-2"></i> همه خدمات</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link py-2 px-4" id="pills-follower-tab" data-bs-toggle="pill" data-bs-target="#pills-follower" type="button"><i class="fas fa-user-plus me-2 text-primary"></i> فالوور</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link py-2 px-4" id="pills-like-tab" data-bs-toggle="pill" data-bs-target="#pills-like" type="button"><i class="fas fa-heart me-2 text-danger"></i> لایک</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link py-2 px-4" id="pills-view-tab" data-bs-toggle="pill" data-bs-target="#pills-view" type="button"><i class="fas fa-eye me-2 text-info"></i> بازدید (ویو)</button>
+        </li>
+    </ul>
+
+    <!-- محتوای کارت‌ها -->
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-all" role="tabpanel">
+            <div class="row g-4">
+                {% for service in services %}
+                <div class="col-md-4">
+                    <div class="card price-card h-100 p-3 position-relative">
+                        <span class="badge-discount">ویژه</span>
+                        <div class="text-center my-3">
+                            {% if service.category == 'follower' %}
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-circle d-inline-block"><i class="fas fa-users fa-3x text-primary"></i></div>
+                            {% elif service.category == 'like' %}
+                                <div class="bg-danger bg-opacity-10 p-3 rounded-circle d-inline-block"><i class="fas fa-heart fa-3x text-danger"></i></div>
+                            {% elif service.category == 'view' %}
+                                <div class="bg-info bg-opacity-10 p-3 rounded-circle d-inline-block"><i class="fas fa-play-circle fa-3x text-info"></i></div>
+                            {% else %}
+                                <div class="bg-success bg-opacity-10 p-3 rounded-circle d-inline-block"><i class="fas fa-comments fa-3x text-success"></i></div>
+                            {% endif %}
+                        </div>
+
+                        <h5 class="fw-bold text-center mb-2">{{ service.title }}</h5>
+                        <p class="text-muted text-center small mb-3">{{ service.description }}</p>
+
+                        <div class="bg-light p-3 rounded-3 mb-3 text-center">
+                            <span class="fs-4 fw-bold text-dark">{{ "{:,}".format(service.price) }}</span>
+                            <span class="text-muted"> تومان</span>
+                        </div>
+
+                        <button class="btn btn-buy w-100 mt-auto" data-bs-toggle="modal" data-bs-target="#modalService{{ service.id }}">
+                            <i class="fas fa-shopping-cart me-1"></i> ثبت سفارش فوری
+                        </button>
                     </div>
-                    <form action="/order" method="POST">
-                        <div class="modal-body">
-                            <input type="hidden" name="service_id" value="{{ service.id }}">
-                            <div class="mb-3">
-                                <label class="form-label">آیدی پیج یا لینک پست اینستاگرام:</label>
-                                <input type="text" name="target_link" class="form-control" placeholder="مثال: sepehr_page یا لینک ریلز" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">شماره موبایل جهت پیگیری:</label>
-                                <input type="text" name="phone" class="form-control" placeholder="0912xxxxxxx" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">کد تخفیف (اختیاری):</label>
-                                <input type="text" name="coupon_code" class="form-control" placeholder="مثال: SEPEHR20">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
-                            <button type="submit" class="btn btn-success">تکمیل سفارش و پرداخت</button>
-                        </div>
-                    </form>
                 </div>
+
+                <!-- مپ مودال خرید -->
+                <div class="modal fade" id="modalService{{ service.id }}" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content rounded-4 border-0">
+                            <div class="modal-header bg-dark text-white rounded-top-4">
+                                <h5 class="modal-title fw-bold">سفارش {{ service.title }}</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                            </div>
+                            <form action="/order" method="POST">
+                                <div class="modal-body p-4">
+                                    <input type="hidden" name="service_id" value="{{ service.id }}">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">آیدی پیج یا لینک پست:</label>
+                                        <input type="text" name="target_link" class="form-control rounded-3" placeholder="مثال: my_page" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">شماره همراه جهت دریافت کد رهگیری:</label>
+                                        <input type="text" name="phone" class="form-control rounded-3" placeholder="0912xxxxxxx" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">کد تخفیف (در صورت داشتن):</label>
+                                        <input type="text" name="coupon_code" class="form-control rounded-3" placeholder="کد تخفیف">
+                                    </div>
+                                    <div class="alert alert-info small mb-0">
+                                        <i class="fas fa-shield-alt me-1"></i> بدون نیاز به رمز عبور پیج شما.
+                                    </div>
+                                </div>
+                                <div class="modal-footer border-0">
+                                    <button type="button" class="btn btn-secondary rounded-3" data-bs-dismiss="modal">انصراف</button>
+                                    <button type="submit" class="btn btn-success rounded-3 fw-bold px-4">پرداخت و تکمیل</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
+    </div>
+</div>
+
+<!-- بخش ویژگی‌ها مشابه ایران فالوور -->
+<div class="bg-white py-5 shadow-sm mt-5">
+    <div class="container text-center">
+        <h3 class="fw-bold mb-4">چرا سپهر فالوور؟</h3>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <i class="fas fa-bolt fa-2x text-warning mb-2"></i>
+                <h6 class="fw-bold">تحویل آنی</h6>
+                <p class="small text-muted mb-0">شروع بلافاصله پس از ثبت سفارش</p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-lock fa-2x text-success mb-2"></i>
+                <h6 class="fw-bold">کاملاً امن</h6>
+                <p class="small text-muted mb-0">بدون نیاز به رمز عبور پیج</p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-headset fa-2x text-primary mb-2"></i>
+                <h6 class="fw-bold">پشتیبانی ۲۴ ساعته</h6>
+                <p class="small text-muted mb-0">پاسخگویی سریع در تمام روزهای هفته</p>
+            </div>
+            <div class="col-md-3">
+                <i class="fas fa-tags fa-2x text-danger mb-2"></i>
+                <h6 class="fw-bold">تضمین قیمت</h6>
+                <p class="small text-muted mb-0">ارزان‌ترین و باکیفیت‌ترین خدمات</p>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
