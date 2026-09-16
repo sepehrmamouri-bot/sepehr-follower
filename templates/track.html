@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0 rounded-4">
+                <div class="card-body p-4">
+                    <h4 class="card-title text-center mb-4 fw-bold"><i class="fas fa-search me-2 text-primary"></i>پیگیری سفارش</h4>
+                    <form action="/track" method="POST">
+                        <div class="input-group mb-3">
+                            <input type="text" name="tracking_code" class="form-control" placeholder="کد رهگیری را وارد کنید (مثال: SPF-XXXXXXXX)" value="{{ code }}" required>
+                            <button class="btn btn-primary" type="submit">استعلام</button>
+                        </div>
+                    </form>
+
+                    {% if order %}
+                    <div class="mt-4 p-3 bg-light rounded-3 border">
+                        <h5 class="fw-bold border-bottom pb-2">جزئیات سفارش:</h5>
+                        <p class="mb-1"><strong>سرویس:</strong> {{ order.service_name }}</p>
+                        <p class="mb-1"><strong>لینک / آیدی:</strong> {{ order.target_link }}</p>
+                        <p class="mb-1"><strong>مبلغ پرداختی:</strong> {{ "{:,}".format(order.amount) }} تومان</p>
+                        <p class="mb-1"><strong>تاریخ ثبت:</strong> {{ order.created_at }}</p>
+                        <p class="mb-0">
+                            <strong>وضعیت:</strong> 
+                            {% if order.status == 'completed' %}
+                                <span class="badge bg-success">تکمیل شده</span>
+                            {% elif order.status == 'pending' %}
+                                <span class="badge bg-warning text-dark">در حال پردازش</span>
+                            {% else %}
+                                <span class="badge bg-danger">{{ order.status }}</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

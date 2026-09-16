@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">داشبورد مدیریت سپهر فالوور</h3>
+        <a href="/admin/logout" class="btn btn-outline-danger btn-sm">خروج از حساب</a>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="card bg-primary text-white p-3 rounded-3 shadow-sm">
+                <h5>تعداد کل سفارشات</h5>
+                <h2 class="fw-bold">{{ orders_count }}</h2>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card bg-success text-white p-3 rounded-3 shadow-sm">
+                <h5>کل فروش ثبت‌شده</h5>
+                <h2 class="fw-bold">{{ "{:,}".format(total_sales) }} تومان</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-header bg-white fw-bold py-3">لیست آخرین سفارشات</div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0 text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>کد پیگیری</th>
+                            <th>سرویس</th>
+                            <th>لینک/آیدی</th>
+                            <th>موبایل</th>
+                            <th>مبلغ</th>
+                            <th>وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td><code>{{ order.tracking_code }}</code></td>
+                            <td>{{ order.service_name }}</td>
+                            <td>{{ order.target_link }}</td>
+                            <td>{{ order.phone }}</td>
+                            <td>{{ "{:,}".format(order.amount) }} تومان</td>
+                            <td><span class="badge bg-success">{{ order.status }}</span></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="6" class="py-4 text-muted">هنوز سفارشی ثبت نشده است.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
