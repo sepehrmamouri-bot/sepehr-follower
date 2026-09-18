@@ -1,283 +1,433 @@
+cat << 'EOF' > ~/sepehr-follower-github/templates/index.html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سامانه فروش خدمات مجازی | سپهر فالوور</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>سپهر فالوور | ارائه‌دهنده خدمات تخصصی شبکه‌های اجتماعی</title>
+    <!-- Vazirmatn Font CDN -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-            --glass-bg: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.18);
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
         }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
         body {
-            background: #0f172a;
-            color: #f8fafc;
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             min-height: 100vh;
-            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
         }
-        .glass-card {
-            background: var(--glass-bg);
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: #fff;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Service Tabs */
+        .categories-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--accent-gradient);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        /* Order Box / Glassmorphism */
+        .order-container {
+            max-width: 650px;
+            margin: 0 auto 4rem;
+            background: var(--card-bg);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: 1.25rem;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
-        .nav-pills .nav-link {
-            color: #94a3b8;
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .price-calculator {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px dashed var(--accent-blue);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-calculator span {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #38bdf8;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1100px;
+            margin: 0 auto 4rem;
+            padding: 0 1rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            font-weight: 600;
-            padding: 10px 24px;
-            transition: all 0.3s;
+            padding: 1.5rem;
+            text-align: center;
         }
-        .nav-pills .nav-link.active {
-            background: var(--primary-gradient);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
         }
-        .service-card {
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            cursor: pointer;
+
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
-        .service-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(168, 85, 247, 0.6);
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
-        .toast-container {
+
+        /* Social Proof Toast */
+        .social-proof {
             position: fixed;
-            bottom: 24px;
-            left: 24px;
+            bottom: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--accent-blue);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            animation: slideIn 0.5s ease-out;
             z-index: 9999;
         }
-        .btn-gradient {
-            background: var(--primary-gradient);
-            border: none;
-            color: white;
-            font-weight: 700;
-            transition: opacity 0.3s;
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
-        .btn-gradient:hover {
-            opacity: 0.9;
-            color: #fff;
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
-        .form-control, .form-select {
-            background-color: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--glass-border);
-            color: #fff;
-        }
-        .form-control:focus, .form-select:focus {
-            background-color: rgba(15, 23, 42, 0.9);
-            color: #fff;
-            border-color: #a855f7;
-            box-shadow: 0 0 0 0.25rem rgba(168, 85, 247, 0.25);
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
-<body class="py-5">
+<body>
 
-<div class="container">
-    <!-- Header -->
-    <header class="text-center mb-5">
-        <h1 class="fw-bold display-5 mb-2 text-transparent bg-clip-text" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-            سپهر فالوور مدرن
-        </h1>
-        <p class="text-secondary fs-5">ارائه‌دهنده مستقیم و آنی خدمات شبکه‌های اجتماعی در خاورمیانه</p>
-    </header>
-
-    <!-- Platform Categories Navigation -->
-    <ul class="nav nav-pills justify-content-center mb-4 gap-2" id="platformTabs">
-        <li class="nav-item">
-            <button class="nav-link active" onclick="filterServices('all')"><i class="fa-solid fa-layer-group me-1"></i> همه سرویس‌ها</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" onclick="filterServices('instagram')"><i class="fa-brands fa-instagram me-1"></i> اینستاگرام</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" onclick="filterServices('telegram')"><i class="fa-brands fa-telegram me-1"></i> تلگرام</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" onclick="filterServices('youtube')"><i class="fa-brands fa-youtube me-1"></i> یوتیوب</button>
-        </li>
-    </ul>
-
-    <!-- Main Content Area -->
-    <div class="row g-4">
-        <!-- Services Grid -->
-        <div class="col-lg-8">
-            <div class="row g-3" id="servicesGrid">
-                {% for service in services %}
-                <div class="col-md-6 service-item" data-category="{{ service.category }}">
-                    <div class="glass-card service-card p-3 h-100 d-flex flex-column justify-content-between" onclick="selectService({{ service.id }}, '{{ service.name }}', {{ service.price }}, {{ service.min_amount }}, {{ service.max_amount }})">
-                        <div>
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-secondary text-capitalize">{{ service.category }}</span>
-                                <small class="text-muted">کد: #{{ service.id }}</small>
-                            </div>
-                            <h5 class="fw-bold mb-2">{{ service.name }}</h5>
-                            <p class="text-secondary small">{{ service.description or 'سرویس با ثبات و تضمینی' }}</p>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top border-secondary border-opacity-25">
-                            <span class="text-warning fw-bold">
-                                {% if service.price is defined and service.price is not none %}
-                                    {{ "{:,}".format(service.price) }}
-                                {% else %}
-                                    0
-                                {% endif %} تومان <small class="text-secondary fw-normal">/ K</small>
-                            </span>
-                            <button class="btn btn-sm btn-outline-light rounded-pill px-3">انتخاب سرویس</button>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-rocket"></i> سپهر فالوور
         </div>
+        <ul class="nav-links">
+            <li><a href="#"><i class="fa-solid fa-house"></i> صفحه اصلی</a></li>
+            <li><a href="#services"><i class="fa-solid fa-list"></i> خدمات</a></li>
+            <li><a href="#features"><i class="fa-solid fa-shield-halved"></i> چرا ما؟</a></li>
+        </ul>
+        <a href="#" class="btn-primary">ورود / ثبت‌نام</a>
+    </nav>
 
-        <!-- Checkout Form -->
-        <div class="col-lg-4">
-            <div class="glass-card p-4 sticky-top" style="top: 2rem;">
-                <h4 class="fw-bold mb-3"><i class="fa-solid fa-cart-shopping me-2 text-primary"></i> ثبت سفارش آنی</h4>
-                <form action="/order" method="POST" id="orderForm">
-                    <input type="hidden" name="service_id" id="formServiceId" required>
-                    
-                    <div class="mb-3">
-                        <label class="form-label text-secondary small">سرویس انتخابی</label>
-                        <input type="text" id="selectedServiceName" class="form-control" readonly placeholder="ابتدا سرویسی را انتخاب کنید" required>
-                    </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>رشد سریع و تضمینی در شبکه‌های اجتماعی</h1>
+        <p>ارائه‌دهنده خدمات فالوور، لایک، ممبر و بازدید واقعی با بهترین قیمت و ارسال آنی</p>
+    </section>
 
-                    <div class="mb-3">
-                        <label class="form-label text-secondary small">لینک یا آیدی پیج / کانال</label>
-                        <input type="text" name="target_link" class="form-control text-start" dir="ltr" placeholder="https://instagram.com/..." required>
-                    </div>
+    <!-- Categories Tabs -->
+    <div class="categories-tabs" id="services">
+        <button class="tab-btn active" onclick="filterServices('all')"><i class="fa-solid fa-border-all"></i> همه خدمات</button>
+        <button class="tab-btn" onclick="filterServices('instagram')"><i class="fa-brands fa-instagram"></i> اینستاگرام</button>
+        <button class="tab-btn" onclick="filterServices('telegram')"><i class="fa-brands fa-telegram"></i> تلگرام</button>
+        <button class="tab-btn" onclick="filterServices('youtube')"><i class="fa-brands fa-youtube"></i> یوتیوب</button>
+    </div>
 
-                    <div class="mb-3">
-                        <label class="form-label text-secondary small d-flex justify-content-between">
-                            <span>تعداد</span>
-                            <span id="amountLimits" class="text-info"></span>
-                        </label>
-                        <input type="number" name="amount" id="orderAmount" class="form-control" value="1000" min="100" oninput="calculateTotal()">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label text-secondary small">کد تخفیف</label>
-                        <div class="input-group">
-                            <input type="text" id="couponInput" class="form-control" placeholder="مثلاً: NINJA20">
-                            <button type="button" class="btn btn-outline-info" onclick="applyCoupon()">اعمال</button>
-                        </div>
-                        <small id="couponMessage" class="d-block mt-1"></small>
-                    </div>
-
-                    <hr class="border-secondary border-opacity-25">
-
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-secondary">مبلغ قابل پرداخت:</span>
-                        <span class="fs-4 fw-bold text-success" id="finalPriceDisplay">0 تومان</span>
-                    </div>
-
-                    <button type="submit" class="btn btn-gradient w-100 py-2 rounded-pill fs-5 shadow">تأیید و پرداخت</button>
-                </form>
+    <!-- Order Form Container -->
+    <div class="order-container">
+        <form id="orderForm" onsubmit="event.preventDefault(); alert('سیستم سفارش به زودی پس از اتصال درگاه پرداخت فعال می‌شود.');">
+            <div class="form-group">
+                <label for="serviceSelect">انتخاب سرویس مورد نظر:</label>
+                <select id="serviceSelect" class="form-control" onchange="updatePrice()">
+                    <option value="100" data-price="25000" data-cat="instagram">فالوور واقعی اینستاگرام - کیفیت عالی (۲۵,۰۰۰ تومان هر ۱k)</option>
+                    <option value="101" data-price="12000" data-cat="instagram">لایک سریع اینستاگرام (۱۲,۰۰۰ تومان هر ۱k)</option>
+                    <option value="102" data-price="18000" data-cat="telegram">ممبر کانال تلگرام (۱۸,۰۰۰ تومان هر ۱k)</option>
+                    <option value="103" data-price="45000" data-cat="youtube">سابسکرایبر یوتیوب (۴۵,۰۰۰ تومان هر ۱k)</option>
+                </select>
             </div>
+
+            <div class="form-group">
+                <label for="targetLink">لینک صفحه یا پست:</label>
+                <input type="text" id="targetLink" class="form-control" placeholder="https://instagram.com/your_page" required>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">تعداد مد نظر:</label>
+                <input type="number" id="quantity" class="form-control" value="1000" min="100" step="100" oninput="updatePrice()">
+            </div>
+
+            <div class="price-calculator">
+                <div>مبلغ قابل پرداخت:</div>
+                <span id="totalPrice">۲۵,۰۰۰ تومان</span>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%; padding: 0.9rem; font-size: 1.1rem;">
+                <i class="fa-solid fa-cart-shopping"></i> ثبت و پرداخت سفارش
+            </button>
+        </form>
+    </div>
+
+    <!-- Features -->
+    <div class="features" id="features">
+        <div class="feature-card">
+            <i class="fa-solid fa-bolt"></i>
+            <h3>تحویل سریع و آنی</h3>
+            <p>سفارشات شما بلافاصله پس از پرداخت به‌صورت خودکار پردازش می‌شوند.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-headset"></i>
+            <h3>پشتیبانی ۲۴/۷</h3>
+            <p>تیم پشتیبانی ما در تمام ساعات شبانه‌روز آماده پاسخگویی است.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-lock"></i>
+            <h3>امنیت کامل اطلاعات</h3>
+            <p>بدون نیاز به رمز عبور پیج یا اکانت شما، فقط با لینک عمومی.</p>
         </div>
     </div>
-</div>
 
-<!-- Social Proof Toast Container -->
-<div class="toast-container" id="toastBox"></div>
+    <!-- Social Proof Toast -->
+    <div class="social-proof" id="toast">
+        <i class="fa-solid fa-bell" style="color: #38bdf8;"></i>
+        <div>
+            <strong style="display: block; font-size: 0.85rem;">خرید جدید!</strong>
+            <span style="font-size: 0.8rem; color: var(--text-muted);" id="toastText">یک کاربر ۱,۰۰۰ فالوور اینستاگرام سفارش داد.</span>
+        </div>
+    </div>
 
-<script>
-    let currentService = null;
-    let discountRate = 0;
+    <!-- Footer -->
+    <footer>
+        <p>© ۱۴۰۳ سپهر فالوور - تمامی حقوق محفوظ است.</p>
+    </footer>
 
-    function selectService(id, name, price, min, max) {
-        currentService = { id, name, price, min, max };
-        document.getElementById('formServiceId').value = id;
-        document.getElementById('selectedServiceName').value = name;
-        
-        const amountInput = document.getElementById('orderAmount');
-        amountInput.min = min;
-        amountInput.max = max;
-        if(parseInt(amountInput.value) < min) amountInput.value = min;
-        
-        document.getElementById('amountLimits').innerText = `حداقل: ${min.toLocaleString()} | حداکثر: ${max.toLocaleString()}`;
-        calculateTotal();
-    }
+    <!-- Scripts -->
+    <script>
+        function updatePrice() {
+            const select = document.getElementById('serviceSelect');
+            const quantity = parseInt(document.getElementById('quantity').value) || 0;
+            const selectedOption = select.options[select.selectedIndex];
+            const pricePerThousand = parseFloat(selectedOption.getAttribute('data-price')) || 0;
 
-    function calculateTotal() {
-        if(!currentService) return;
-        const amount = parseInt(document.getElementById('orderAmount').value) || 0;
-        let base = (currentService.price / 1000) * amount;
-        if(discountRate > 0) {
-            base = base * (1 - (discountRate / 100));
+            const total = (quantity / 1000) * pricePerThousand;
+            document.getElementById('totalPrice').innerText = total.toLocaleString('fa-IR') + ' تومان';
         }
-        document.getElementById('finalPriceDisplay').innerText = Math.round(base).toLocaleString('fa-IR') + ' تومان';
-    }
 
-    function filterServices(category) {
-        document.querySelectorAll('#platformTabs .nav-link').forEach(el => el.classList.remove('active'));
-        event.target.classList.add('active');
+        function filterServices(category) {
+            const select = document.getElementById('serviceSelect');
+            const options = select.options;
+            
+            // Toggle active class on tabs
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.currentTarget.classList.add('active');
 
-        const items = document.querySelectorAll('.service-item');
-        items.forEach(item => {
-            if(category === 'all' || item.getAttribute('data-category') === category) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
+            let firstMatch = null;
+            for (let i = 0; i < options.length; i++) {
+                const optCat = options[i].getAttribute('data-cat');
+                if (category === 'all' || optCat === category) {
+                    options[i].style.display = '';
+                    if (!firstMatch) firstMatch = options[i];
+                } else {
+                    options[i].style.display = 'none';
+                }
             }
-        });
-    }
-
-    async function applyCoupon() {
-        const code = document.getElementById('couponInput').value;
-        const msg = document.getElementById('couponMessage');
-        if(!code) return;
-
-        try {
-            const res = await fetch('/api/check-coupon', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ code })
-            });
-            const data = await res.json();
-            if(data.valid) {
-                discountRate = data.discount;
-                msg.className = "text-success small d-block mt-1";
-                msg.innerText = data.message;
-                calculateTotal();
-            } else {
-                discountRate = 0;
-                msg.className = "text-danger small d-block mt-1";
-                msg.innerText = data.message;
-                calculateTotal();
+            if (firstMatch) {
+                select.value = firstMatch.value;
+                updatePrice();
             }
-        } catch (e) {
-            msg.className = "text-danger small d-block mt-1";
-            msg.innerText = "خطا در برقراری ارتباط با سرور";
         }
-    }
 
-    // Social Proof Toast Simulation
-    const dummyNames = ["امیرحسین", "سارا", "رضا", "نیلوفر", "محمد", "مهسا"];
-    const dummyServices = ["۱,۰۰۰ فالوور اینستاگرام", "۵,۰۰۰ بازدید تلگرام", "۵۰۰ لایک اکسپلور"];
+        // Fake Social Proof Notifications
+        const fakeNotifications = [
+            'کاربر علی ۱,۰۰۰ فالوور اینستاگرام خرید.',
+            'کاربر مریم ۵۰۰ ممبر تلگرام ثبت کرد.',
+            'کاربر رضا ۲,۰۰۰ بازدید یوتیوب سفارش داد.',
+            'کاربر سارا ۵,۰۰۰ لایک پست ثبت نمود.'
+        ];
 
-    function showRandomOrderToast() {
-        const name = dummyNames[Math.floor(Math.random() * dummyNames.length)];
-        const serv = dummyServices[Math.floor(Math.random() * dummyServices.length)];
-        
-        const toast = document.createElement('div');
-        toast.className = 'glass-card p-3 mb-2 text-white';
-        toast.style.minWidth = "260px";
-        toast.style.animation = "fadeIn 0.5s ease";
-        toast.innerHTML = `<i class="fa-solid fa-circle-check text-success me-2"></i><strong>${name}</strong> همین الان <strong>${serv}</strong> ثبت کرد.`;
-        
-        const container = document.getElementById('toastBox');
-        container.appendChild(toast);
-        setTimeout(() => toast.remove(), 4000);
-    }
-    setInterval(showRandomOrderToast, 12000);
-</script>
+        setInterval(() => {
+            const randomText = fakeNotifications[Math.floor(Math.random() * fakeNotifications.length)];
+            document.getElementById('toastText').innerText = randomText;
+            const toast = document.getElementById('toast');
+            toast.style.display = 'flex';
+            setTimeout(() => { toast.style.display = 'none'; }, 4000);
+        }, 12000);
+
+        // Initial Price Calculation
+        updatePrice();
+    </script>
 </body>
 </html>
+EOF
 
