@@ -3,487 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سپهر فالوور | پلتفرم بین‌المللی ارائه‌دهنده خدمات مجازی و شبکه‌های اجتماعی</title>
-    <!-- استایل‌ها و فونت‌ها -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
+    <title>سامانه فروش خدمات مجازی | سپهر فالوور</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.4);
-            --secondary: #ec4899;
-            --bg-dark: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.18);
         }
-
         body {
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
+            background: #0f172a;
+            color: #f8fafc;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
             min-height: 100vh;
+            overflow-x: hidden;
         }
-
-        /* Ambient Lights Background */
-        .ambient-glow-1 {
-            position: absolute;
-            top: -10%;
-            right: -5%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
-            filter: blur(50px);
-        }
-        .ambient-glow-2 {
-            position: absolute;
-            top: 20%;
-            left: -10%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(236,72,153,0.2) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
-            filter: blur(60px);
-        }
-
-        /* Glassmorphism Cards */
         .glass-card {
-            background: var(--card-bg);
+            background: var(--glass-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
-        .glass-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 20px 40px -15px var(--primary-glow);
+        .nav-pills .nav-link {
+            color: #94a3b8;
+            border-radius: 12px;
+            font-weight: 600;
+            padding: 10px 24px;
+            transition: all 0.3s;
         }
-
-        /* Navigation */
-        .navbar-custom {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-glass);
-        }
-
-        /* Platform Tabs */
-        .nav-pills-custom .nav-link {
-            color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-glass);
-            border-radius: 16px;
-            padding: 12px 24px;
-            font-weight: 700;
-            transition: all 0.25s ease;
-        }
-        .nav-pills-custom .nav-link.active {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        .nav-pills .nav-link.active {
+            background: var(--primary-gradient);
             color: #fff;
-            border-color: transparent;
-            box-shadow: 0 8px 20px -6px var(--primary-glow);
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
         }
-
-        /* Badges & Buttons */
-        .btn-gradient {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: #fff;
-            border: none;
-            border-radius: 14px;
-            font-weight: 700;
-            transition: all 0.3s ease;
+        .service-card {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
         }
-        .btn-gradient:hover {
-            opacity: 0.95;
-            box-shadow: 0 10px 25px -5px var(--primary-glow);
-            color: #fff;
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(168, 85, 247, 0.6);
         }
-
-        .badge-pulse {
-            position: relative;
-        }
-        .badge-pulse::after {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #22c55e;
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            left: -12px;
-            box-shadow: 0 0 10px #22c55e;
-        }
-
-        /* Social Proof Floating Toast */
-        .social-proof-toast {
+        .toast-container {
             position: fixed;
             bottom: 24px;
-            right: 24px;
-            background: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            padding: 14px 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            left: 24px;
             z-index: 9999;
-            transform: translateY(150%);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .social-proof-toast.active {
-            transform: translateY(0);
+        .btn-gradient {
+            background: var(--primary-gradient);
+            border: none;
+            color: white;
+            font-weight: 700;
+            transition: opacity 0.3s;
+        }
+        .btn-gradient:hover {
+            opacity: 0.9;
+            color: #fff;
+        }
+        .form-control, .form-select {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--glass-border);
+            color: #fff;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: rgba(15, 23, 42, 0.9);
+            color: #fff;
+            border-color: #a855f7;
+            box-shadow: 0 0 0 0.25rem rgba(168, 85, 247, 0.25);
         }
     </style>
 </head>
-<body>
+<body class="py-5">
 
-    <div class="ambient-glow-1"></div>
-    <div class="ambient-glow-2"></div>
+<div class="container">
+    <!-- Header -->
+    <header class="text-center mb-5">
+        <h1 class="fw-bold display-5 mb-2 text-transparent bg-clip-text" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            سپهر فالوور مدرن
+        </h1>
+        <p class="text-secondary fs-5">ارائه‌دهنده مستقیم و آنی خدمات شبکه‌های اجتماعی در خاورمیانه</p>
+    </header>
 
-    <!-- Header Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top py-3">
-        <div class="container">
-            <a class="navbar-brand fw-black fs-4 d-flex align-items-center gap-2" href="/">
-                <span class="p-2 rounded-3 bg-primary bg-opacity-25 text-primary">
-                    <i class="fas fa-rocket"></i>
-                </span>
-                <span>سپهر فالوور</span>
-            </a>
-            <div class="d-flex align-items-center gap-3">
-                <a href="#tracking" class="btn btn-outline-light rounded-pill btn-sm px-3 fw-bold">
-                    <i class="fas fa-search me-1"></i> پیگیری سفارش
-                </a>
-                <a href="#services" class="btn btn-gradient rounded-pill btn-sm px-4">
-                    <i class="fas fa-bolt me-1"></i> ثبت سفارش
-                </a>
+    <!-- Platform Categories Navigation -->
+    <ul class="nav nav-pills justify-content-center mb-4 gap-2" id="platformTabs">
+        <li class="nav-item">
+            <button class="nav-link active" onclick="filterServices('all')"><i class="fa-solid fa-layer-group me-1"></i> همه سرویس‌ها</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" onclick="filterServices('instagram')"><i class="fa-brands fa-instagram me-1"></i> اینستاگرام</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" onclick="filterServices('telegram')"><i class="fa-brands fa-telegram me-1"></i> تلگرام</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" onclick="filterServices('youtube')"><i class="fa-brands fa-youtube me-1"></i> یوتیوب</button>
+        </li>
+    </ul>
+
+    <!-- Main Content Area -->
+    <div class="row g-4">
+        <!-- Services Grid -->
+        <div class="col-lg-8">
+            <div class="row g-3" id="servicesGrid">
+                {% for service in services %}
+                <div class="col-md-6 service-item" data-category="{{ service.category }}">
+                    <div class="glass-card service-card p-3 h-100 d-flex flex-column justify-content-between" onclick="selectService({{ service.id }}, '{{ service.name }}', {{ service.price }}, {{ service.min_amount }}, {{ service.max_amount }})">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-secondary text-capitalize">{{ service.category }}</span>
+                                <small class="text-muted">کد: #{{ service.id }}</small>
+                            </div>
+                            <h5 class="fw-bold mb-2">{{ service.name }}</h5>
+                            <p class="text-secondary small">{{ service.description or 'سرویس با ثبات و تضمینی' }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top border-secondary border-opacity-25">
+                            <span class="text-warning fw-bold">
+                                {% if service.price is defined and service.price is not none %}
+                                    {{ "{:,}".format(service.price) }}
+                                {% else %}
+                                    0
+                                {% endif %} تومان <small class="text-secondary fw-normal">/ K</small>
+                            </span>
+                            <button class="btn btn-sm btn-outline-light rounded-pill px-3">انتخاب سرویس</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="py-5 text-center position-relative">
-        <div class="container py-4">
-            <div class="row justify-content-center">
-                <div class="col-lg-9">
-                    <span class="badge bg-white bg-opacity-10 text-warning px-3 py-2 rounded-pill mb-3 fw-bold border border-white border-opacity-10">
-                        ⚡ ارسال سرعتی زیر ۳۰ ثانیه بدون نیاز به کلمه عبور
-                    </span>
-                    <h1 class="display-3 fw-black mb-4 lh-base">
-                        مرجع شماره یک خدمات <br>
-                        <span class="text-transparent bg-clip-text bg-gradient" style="background: linear-gradient(135deg, #818cf8 0%, #f472b6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                            شبکه‌های اجتماعی در خاورمیانه
-                        </span>
-                    </h1>
-                    <p class="lead text-secondary text-muted mb-5 mx-auto" style="max-width: 680px;">
-                        افزایش تضمینی، فوری و هوشمند فالوور واقعی اینستاگرام، ممبر فعال پروکسی تلگرام، سابسکرایبر و ویو با قوی‌ترین سرورهای توزیع‌شده بین‌المللی.
-                    </p>
-                    <div class="d-flex justify-content-center gap-3 flex-wrap">
-                        <a href="#services" class="btn btn-gradient btn-lg px-5 py-3 rounded-pill fs-6">
-                            مشاهده پنل تعرفه‌ها و پکیج‌ها <i class="fas fa-arrow-left ms-2"></i>
-                        </a>
+        <!-- Checkout Form -->
+        <div class="col-lg-4">
+            <div class="glass-card p-4 sticky-top" style="top: 2rem;">
+                <h4 class="fw-bold mb-3"><i class="fa-solid fa-cart-shopping me-2 text-primary"></i> ثبت سفارش آنی</h4>
+                <form action="/order" method="POST" id="orderForm">
+                    <input type="hidden" name="service_id" id="formServiceId" required>
+                    
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small">سرویس انتخابی</label>
+                        <input type="text" id="selectedServiceName" class="form-control" readonly placeholder="ابتدا سرویسی را انتخاب کنید" required>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Statistics Panel -->
-    <section class="container mb-5">
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="glass-card p-4 text-center">
-                    <h2 class="fw-black text-primary mb-1">+۲۸۰,۰۰۰</h2>
-                    <span class="text-muted small">تعداد سفارش‌های موفق سیستمی</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="glass-card p-4 text-center">
-                    <h2 class="fw-black text-warning mb-1">۰.۵ ثانیه</h2>
-                    <span class="text-muted small">میانگین زمان اتصال به درگاه و پردازش</span>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="glass-card p-4 text-center">
-                    <h2 class="fw-black text-success mb-1">۱۰۰٪ گارانتی</h2>
-                    <span class="text-muted small">ضمانت جبران ریزش و بازگشت وجه</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Hub with Dynamic Category Tabs -->
-    <section id="services" class="container py-5">
-        <div class="text-center mb-5">
-            <h2 class="fw-black mb-2">انتخاب پلتفرم و نوع خدمات</h2>
-            <p class="text-muted">دسته‌بندی مورد نظر را انتخاب و مشخصات بسته را تعیین کنید</p>
-            
-            <ul class="nav nav-pills nav-pills-custom justify-content-center gap-2 mt-4" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="tab-instagram" data-bs-toggle="pill" data-bs-target="#content-instagram" type="button">
-                        <i class="fab fa-instagram me-2"></i> اینستاگرام
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab-telegram" data-bs-toggle="pill" data-bs-target="#content-telegram" type="button">
-                        <i class="fab fa-telegram me-2"></i> تلگرام
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab-youtube" data-bs-toggle="pill" data-bs-target="#content-youtube" type="button">
-                        <i class="fab fa-youtube me-2"></i> یوتیوب
-                    </button>
-                </li>
-            </ul>
-        </div>
-
-        <div class="tab-content" id="pills-tabContent">
-            <!-- INSTAGRAM TAB -->
-            <div class="tab-pane fade show active" id="content-instagram">
-                <div class="row g-4">
-                    {% for s in services.instagram %}
-                    <div class="col-lg-4 col-md-6">
-                        <div class="glass-card p-4 h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="badge bg-primary bg-opacity-25 text-primary border border-primary border-opacity-25 rounded-pill px-3 py-2">
-                                        {{ s.badge or 'پرفروش' }}
-                                    </span>
-                                    <span class="text-success small badge-pulse">سرور آنلاین</span>
-                                </div>
-                                <h4 class="fw-bold mb-2">{{ s.title }}</h4>
-                                <p class="text-muted small mb-4">{{ s.description }}</p>
-                            </div>
-                            <div>
-                                <div class="bg-black bg-opacity-30 rounded-4 p-3 text-center mb-3 border border-white border-opacity-5">
-                                    <span class="fs-3 fw-black text-warning">{{ "{:,}".format(s.price) }}</span>
-                                    <span class="text-muted small">تومان / پایه</span>
-                                </div>
-                                <button class="btn btn-gradient w-100 py-2 rounded-3" onclick="openOrderModal('{{ s.id }}', '{{ s.title }}', {{ s.price }}, {{ s.min_amount }}, {{ s.max_amount }})">
-                                    ثبت سفارش فوری <i class="fas fa-shopping-bag ms-2"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small">لینک یا آیدی پیج / کانال</label>
+                        <input type="text" name="target_link" class="form-control text-start" dir="ltr" placeholder="https://instagram.com/..." required>
                     </div>
-                    {% endfor %}
-                </div>
-            </div>
 
-            <!-- TELEGRAM TAB -->
-            <div class="tab-pane fade" id="content-telegram">
-                <div class="row g-4">
-                    {% for s in services.telegram %}
-                    <div class="col-lg-4 col-md-6">
-                        <div class="glass-card p-4 h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="badge bg-info bg-opacity-25 text-info border border-info border-opacity-25 rounded-pill px-3 py-2">
-                                        {{ s.badge or 'اختصاصی' }}
-                                    </span>
-                                    <span class="text-success small badge-pulse">تضمینی</span>
-                                </div>
-                                <h4 class="fw-bold mb-2">{{ s.title }}</h4>
-                                <p class="text-muted small mb-4">{{ s.description }}</p>
-                            </div>
-                            <div>
-                                <div class="bg-black bg-opacity-30 rounded-4 p-3 text-center mb-3 border border-white border-opacity-5">
-                                    <span class="fs-3 fw-black text-warning">{{ "{:,}".format(s.price) }}</span>
-                                    <span class="text-muted small">تومان / پایه</span>
-                                </div>
-                                <button class="btn btn-gradient w-100 py-2 rounded-3" onclick="openOrderModal('{{ s.id }}', '{{ s.title }}', {{ s.price }}, {{ s.min_amount }}, {{ s.max_amount }})">
-                                    ثبت سفارش فوری <i class="fas fa-shopping-bag ms-2"></i>
-                                </button>
-                            </div>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small d-flex justify-content-between">
+                            <span>تعداد</span>
+                            <span id="amountLimits" class="text-info"></span>
+                        </label>
+                        <input type="number" name="amount" id="orderAmount" class="form-control" value="1000" min="100" oninput="calculateTotal()">
                     </div>
-                    {% endfor %}
-                </div>
-            </div>
 
-            <!-- YOUTUBE TAB -->
-            <div class="tab-pane fade" id="content-youtube">
-                <div class="row g-4">
-                    {% for s in services.youtube %}
-                    <div class="col-lg-4 col-md-6">
-                        <div class="glass-card p-4 h-100 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <span class="badge bg-danger bg-opacity-25 text-danger border border-danger border-opacity-25 rounded-pill px-3 py-2">
-                                        {{ s.badge or 'مانیتایز' }}
-                                    </span>
-                                    <span class="text-success small badge-pulse">بدون افت</span>
-                                </div>
-                                <h4 class="fw-bold mb-2">{{ s.title }}</h4>
-                                <p class="text-muted small mb-4">{{ s.description }}</p>
-                            </div>
-                            <div>
-                                <div class="bg-black bg-opacity-30 rounded-4 p-3 text-center mb-3 border border-white border-opacity-5">
-                                    <span class="fs-3 fw-black text-warning">{{ "{:,}".format(s.price) }}</span>
-                                    <span class="text-muted small">تومان / پایه</span>
-                                </div>
-                                <button class="btn btn-gradient w-100 py-2 rounded-3" onclick="openOrderModal('{{ s.id }}', '{{ s.title }}', {{ s.price }}, {{ s.min_amount }}, {{ s.max_amount }})">
-                                    ثبت سفارش فوری <i class="fas fa-shopping-bag ms-2"></i>
-                                </button>
-                            </div>
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small">کد تخفیف</label>
+                        <div class="input-group">
+                            <input type="text" id="couponInput" class="form-control" placeholder="مثلاً: NINJA20">
+                            <button type="button" class="btn btn-outline-info" onclick="applyCoupon()">اعمال</button>
                         </div>
+                        <small id="couponMessage" class="d-block mt-1"></small>
                     </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Quick Order Modal (هوشمند و با محاسبه‌گر آنی) -->
-    <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content glass-card border-0 text-white">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="fw-bold" id="modalServiceTitle">ثبت سفارش</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <form action="/order/create" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" name="service_id" id="modalServiceId">
-                        <input type="hidden" id="modalUnitPrice">
-                        
-                        <div class="mb-3">
-                            <label class="form-label small text-muted">آیدی یا لینک پست/کانال مقصد:</label>
-                            <input type="text" name="target" class="form-control bg-dark border-secondary text-white rounded-3" placeholder="مثال: https://instagram.com/p/... یا @channel" required>
-                        </div>
+                    <hr class="border-secondary border-opacity-25">
 
-                        <div class="mb-3">
-                            <label class="form-label small text-muted d-flex justify-content-between">
-                                <span>تعداد سفارش:</span>
-                                <span class="text-warning fw-bold" id="amountDisplay">۱۰۰۰</span>
-                            </label>
-                            <input type="range" class="form-range" id="amountSlider" name="amount" oninput="updatePricing()">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label small text-muted">شماره موبایل پیگیری:</label>
-                            <input type="tel" name="phone" class="form-control bg-dark border-secondary text-white rounded-3" placeholder="09123456789" required>
-                        </div>
-
-                        <!-- Coupon Box -->
-                        <div class="mb-3">
-                            <label class="form-label small text-muted">کد تخفیف (اختیاری):</label>
-                            <div class="input-group">
-                                <input type="text" id="couponCode" class="form-control bg-dark border-secondary text-white rounded-start-3" placeholder="مثال: SEPEHR2026">
-                                <button type="button" class="btn btn-outline-warning rounded-end-3" onclick="checkCoupon()">اعمال کد</button>
-                            </div>
-                            <small id="couponMessage" class="d-block mt-1"></small>
-                        </div>
-
-                        <div class="p-3 bg-black bg-opacity-40 rounded-3 d-flex justify-content-between align-items-center">
-                            <span class="small">مبلغ قابل پرداخت:</span>
-                            <span class="fs-4 fw-black text-success"><span id="finalPriceDisplay">۰</span> تومان</span>
-                        </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-secondary">مبلغ قابل پرداخت:</span>
+                        <span class="fs-4 fw-bold text-success" id="finalPriceDisplay">0 تومان</span>
                     </div>
-                    <div class="modal-footer border-0 pt-0">
-                        <button type="submit" class="btn btn-gradient w-100 py-3 rounded-3 fw-bold">
-                            تایید و اتصال امن به درگاه بانکی <i class="fas fa-lock ms-2"></i>
-                        </button>
-                    </div>
+
+                    <button type="submit" class="btn btn-gradient w-100 py-2 rounded-pill fs-5 shadow">تأیید و پرداخت</button>
                 </form>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Social Proof Toast Container -->
-    <div class="social-proof-toast d-flex align-items-center gap-3" id="socialProof">
-        <div class="rounded-circle bg-success bg-opacity-25 text-success p-2">
-            <i class="fas fa-check-circle fs-5"></i>
-        </div>
-        <div>
-            <div class="fw-bold small text-white" id="spUser">یک کاربر از تهران</div>
-            <div class="text-muted small" id="spAction">۱,۰۰۰ فالوور ایرانی خریداری کرد</div>
-        </div>
-    </div>
+<!-- Social Proof Toast Container -->
+<div class="toast-container" id="toastBox"></div>
 
-    <!-- اسکریپت‌های سیستمی و تعاملی -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        let currentUnitPrice = 0;
-        let discountPercent = 0;
-        const modalObj = new bootstrap.Modal(document.getElementById('orderModal'));
+<script>
+    let currentService = null;
+    let discountRate = 0;
 
-        function openOrderModal(id, title, price, min, max) {
-            document.getElementById('modalServiceId').value = id;
-            document.getElementById('modalServiceTitle').innerText = title;
-            document.getElementById('modalUnitPrice').value = price;
-            currentUnitPrice = price;
+    function selectService(id, name, price, min, max) {
+        currentService = { id, name, price, min, max };
+        document.getElementById('formServiceId').value = id;
+        document.getElementById('selectedServiceName').value = name;
+        
+        const amountInput = document.getElementById('orderAmount');
+        amountInput.min = min;
+        amountInput.max = max;
+        if(parseInt(amountInput.value) < min) amountInput.value = min;
+        
+        document.getElementById('amountLimits').innerText = `حداقل: ${min.toLocaleString()} | حداکثر: ${max.toLocaleString()}`;
+        calculateTotal();
+    }
 
-            const slider = document.getElementById('amountSlider');
-            slider.min = min;
-            slider.max = max;
-            slider.value = min;
-            slider.step = min >= 1000 ? 500 : 50;
-
-            discountPercent = 0;
-            document.getElementById('couponMessage').innerText = '';
-            document.getElementById('couponCode').value = '';
-
-            updatePricing();
-            modalObj.show();
+    function calculateTotal() {
+        if(!currentService) return;
+        const amount = parseInt(document.getElementById('orderAmount').value) || 0;
+        let base = (currentService.price / 1000) * amount;
+        if(discountRate > 0) {
+            base = base * (1 - (discountRate / 100));
         }
+        document.getElementById('finalPriceDisplay').innerText = Math.round(base).toLocaleString('fa-IR') + ' تومان';
+    }
 
-        function updatePricing() {
-            const amount = parseInt(document.getElementById('amountSlider').value);
-            document.getElementById('amountDisplay').innerText = Number(amount).toLocaleString('fa-IR');
-            
-            let total = (amount * currentUnitPrice) / 1000;
-            if (discountPercent > 0) {
-                total = total - (total * (discountPercent / 100));
+    function filterServices(category) {
+        document.querySelectorAll('#platformTabs .nav-link').forEach(el => el.classList.remove('active'));
+        event.target.classList.add('active');
+
+        const items = document.querySelectorAll('.service-item');
+        items.forEach(item => {
+            if(category === 'all' || item.getAttribute('data-category') === category) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
             }
-            document.getElementById('finalPriceDisplay').innerText = Math.round(total).toLocaleString('fa-IR');
-        }
+        });
+    }
 
-        function checkCoupon() {
-            const code = document.getElementById('couponCode').value.trim();
-            const msg = document.getElementById('couponMessage');
-            if(!code) return;
+    async function applyCoupon() {
+        const code = document.getElementById('couponInput').value;
+        const msg = document.getElementById('couponMessage');
+        if(!code) return;
 
-            fetch('/api/check-coupon', {
+        try {
+            const res = await fetch('/api/check-coupon', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ code: code })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.valid) {
-                    discountPercent = data.percent;
-                    msg.className = 'text-success small d-block mt-1';
-                    msg.innerText = `کد معتبر است! ${data.percent}٪ تخفیف اعمال شد.`;
-                    updatePricing();
-                } else {
-                    discountPercent = 0;
-                    msg.className = 'text-danger small d-block mt-1';
-                    msg.innerText = data.message || 'کد تخفیف نامعتبر است.';
-                    updatePricing();
-                }
+                body: JSON.stringify({ code })
             });
+            const data = await res.json();
+            if(data.valid) {
+                discountRate = data.discount;
+                msg.className = "text-success small d-block mt-1";
+                msg.innerText = data.message;
+                calculateTotal();
+            } else {
+                discountRate = 0;
+                msg.className = "text-danger small d-block mt-1";
+                msg.innerText = data.message;
+                calculateTotal();
+            }
+        } catch (e) {
+            msg.className = "text-danger small d-block mt-1";
+            msg.innerText = "خطا در برقراری ارتباط با سرور";
         }
+    }
 
-        // سیستم Social Proof خودکار (نمایش هر ۱۰ ثانیه)
-        const buyers = ['کاربر از شیراز', 'کاربر از مشهد', 'کاربر از اصفهان', 'کاربر از تبریز', 'کاربر از اهواز', 'کاربر از تهران'];
-        const purchases = ['۲,۵۰۰ فالوور پاپ‌آپ', '۵۰۰ ممبر پروکسی تلگرام', '۱,۰۰۰ لایک اکسپلوری اینستاگرام', '۱۰,۰۰۰ ویو استوری'];
+    // Social Proof Toast Simulation
+    const dummyNames = ["امیرحسین", "سارا", "رضا", "نیلوفر", "محمد", "مهسا"];
+    const dummyServices = ["۱,۰۰۰ فالوور اینستاگرام", "۵,۰۰۰ بازدید تلگرام", "۵۰۰ لایک اکسپلور"];
 
-        setInterval(() => {
-            const buyer = buyers[Math.floor(Math.random() * buyers.length)];
-            const item = purchases[Math.floor(Math.random() * purchases.length)];
-            document.getElementById('spUser').innerText = buyer;
-            document.getElementById('spAction').innerText = `${item} خریداری کرد`;
-
-            const toast = document.getElementById('socialProof');
-            toast.classList.add('active');
-            setTimeout(() => toast.classList.remove('active'), 4500);
-        }, 11000);
-    </script>
+    function showRandomOrderToast() {
+        const name = dummyNames[Math.floor(Math.random() * dummyNames.length)];
+        const serv = dummyServices[Math.floor(Math.random() * dummyServices.length)];
+        
+        const toast = document.createElement('div');
+        toast.className = 'glass-card p-3 mb-2 text-white';
+        toast.style.minWidth = "260px";
+        toast.style.animation = "fadeIn 0.5s ease";
+        toast.innerHTML = `<i class="fa-solid fa-circle-check text-success me-2"></i><strong>${name}</strong> همین الان <strong>${serv}</strong> ثبت کرد.`;
+        
+        const container = document.getElementById('toastBox');
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+    setInterval(showRandomOrderToast, 12000);
+</script>
 </body>
 </html>
 
